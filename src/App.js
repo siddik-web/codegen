@@ -71,11 +71,10 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem("manifest_key") === null) {
-      setManifest(JSON.parse(localStorage.getItem("manifest_key")));
       localStorage.setItem("manifest_key", JSON.stringify(manifest))
+      setManifest(JSON.parse(localStorage.getItem("manifest_key")));
     } 
   }, [manifest]);
-  console.log(manifest);
   return (
     <div>
       <h1 className="text-center">CodeGen</h1>
