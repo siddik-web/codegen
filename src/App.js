@@ -3,78 +3,34 @@ import "./App.css";
 import CodeBlock from "./components/CodeBlock";
 import InputBoxWithLabel from "./components/inputs/InputBoxWithLabel";
 
+const initialState = {
+  name: "",
+  author: "",
+  creationDate: "",
+  copyright: "",
+  license:"",
+  authorEmail: "",
+  authorUrl: "",
+  version: "",
+  description: "",
+};
+
 function App() {
-  const [manifest, setManifest] = useState({
-    name: "",
-    author: "",
-    creationDate: "",
-    copyright: "",
-    license:"",
-    authorEmail: "",
-    authorUrl: "",
-    version: "",
-    description: "",
-  });
-  const handelNameChange = (e) => {
-    localStorage.setItem(
-      "manifest_key", JSON.stringify({ ...manifest, name: e.target.value })
-    );
-    setManifest({ ...manifest, name: e.target.value });
-  };
-  const handelAuthorChange = (e) => {
-    localStorage.setItem(
-      "manifest_key", JSON.stringify({ ...manifest, author: e.target.value })
-    );
-    setManifest({ ...manifest, author: e.target.value });
-  };
-  const handelCreationDateChange = (e) => {
-    localStorage.setItem(
-      "manifest_key", JSON.stringify({ ...manifest, creationDate: e.target.value })
-    );
-    setManifest({ ...manifest, creationDate: e.target.value });
-  };
+  const [manifest, setManifest] = useState(initialState);
 
-  const handelCopyrightChange = (e) => {
-    localStorage.setItem(
-      "manifest_key", JSON.stringify({ ...manifest, copyright: e.target.value })
-    );
-    setManifest({ ...manifest, copyright: e.target.value });
-  };
-
-  const handelAuthorEmailChange = (e) => {
-    localStorage.setItem(
-      "manifest_key", JSON.stringify({ ...manifest, authorEmail: e.target.value })
-    );
-    setManifest({ ...manifest, authorEmail: e.target.value });
-  };
-
-  const handelAuthorUrlChange = (e) => {
-    localStorage.setItem(
-      "manifest_key", JSON.stringify({ ...manifest, authorUrl: e.target.value })
-    );
-    setManifest({ ...manifest, authorUrl: e.target.value });
-  };
-
-  const handelVersionChange = (e) => {
-    localStorage.setItem(
-      "manifest_key", JSON.stringify({ ...manifest, version: e.target.value })
-    );
-    setManifest({ ...manifest, version: e.target.value });
-  };
-
-  const handelDescriptionChange = (e) => {
-    localStorage.setItem(
-      "manifest_key", JSON.stringify({ ...manifest, description: e.target.value })
-    );
-    setManifest({ ...manifest, description: e.target.value });
-  };
+  const handleInputChange = (key) => (value) => {
+    const updatedManifest = {...manifest, [key]: value};
+    setManifest(updatedManifest);
+    localStorage.setItem("manifest_key", JSON.stringify(updatedManifest));
+  }
 
   useEffect(() => {
-    if (localStorage.getItem("manifest_key") === null) {
-      localStorage.setItem("manifest_key", JSON.stringify(manifest))
-      setManifest(JSON.parse(localStorage.getItem("manifest_key")));
-    } 
-  }, [manifest]);
+    if(localStorage.getItem('manifest_key')) {
+      setManifest(JSON.parse(localStorage.getItem('manifest_key')))
+    }
+  }, [])
+
+
   return (
     <div>
       <h1 className="text-center">CodeGen</h1>
@@ -85,49 +41,57 @@ function App() {
               id={"name"}
               label={"name"}
               type={"text"}
-              onChange={handelNameChange}
+              value={manifest.name}
+              onChange={handleInputChange('name')}
             />
             <InputBoxWithLabel
               id={"author"}
               label={"author"}
               type={"text"}
-              onChange={handelAuthorChange}
+              value={manifest.author}
+              onChange={handleInputChange('author')}
             />
             <InputBoxWithLabel
               id={"creationDate"}
               label={"Creation Date"}
               type={"text"}
-              onChange={handelCreationDateChange}
+              value={manifest.creationDate}
+              onChange={handleInputChange('creationDate')}
             />
             <InputBoxWithLabel
               id={"copyright"}
               label={"copyright"}
               type={"text"}
-              onChange={handelCopyrightChange}
+              value={manifest.copyright}
+              onChange={handleInputChange('copyright')}
             />
             <InputBoxWithLabel
               id={"authorEmail"}
               label={"author Email"}
               type={"text"}
-              onChange={handelAuthorEmailChange}
+              value={manifest.authorEmail}
+              onChange={handleInputChange('authorEmail')}
             />
             <InputBoxWithLabel
               id={"authorUrl"}
               label={"authorUrl"}
               type={"text"}
-              onChange={handelAuthorUrlChange}
+              value={manifest.authorUrl}
+              onChange={handleInputChange('authorUrl')}
             />
             <InputBoxWithLabel
               id={"version"}
               label={"version"}
               type={"text"}
-              onChange={handelVersionChange}
+              value={manifest.version}
+              onChange={handleInputChange('version')}
             />
             <InputBoxWithLabel
               id={"description"}
               label={"description"}
               type={"text"}
-              onChange={handelDescriptionChange}
+              value={manifest.description}
+              onChange={handleInputChange('description')}
             />
           </div>
           <div className="col border p-3">
