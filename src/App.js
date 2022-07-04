@@ -98,6 +98,7 @@ function App() {
             <CodeBlock
               type={"module"}
               client={"site"}
+              group={"system"}
               name={JSON.parse(localStorage.getItem('manifest_key'))?.name}
               author={JSON.parse(localStorage.getItem('manifest_key'))?.author}
               creationDate={JSON.parse(localStorage.getItem('manifest_key'))?.creationDate}
